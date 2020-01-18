@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { flexbox } from 'styled-system';
+import { flexbox, flex } from 'styled-system';
 import { FlexProps } from '../../react-app-env';
 import { Box } from '.';
 
 const Flex = styled(Box)<FlexProps>`
   ${flexbox}
+  display: flex;
   box-sizing: border-box;
 `
 
