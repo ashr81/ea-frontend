@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { Flex } from '.';
+import { InputProps } from '../../react-app-env'
 
-const Input = styled(Flex).attrs(() => ({ as: 'input' }))`
+const Input = styled(Flex).attrs(() => ({ as: 'input' }))<InputProps>`
 
 `
 

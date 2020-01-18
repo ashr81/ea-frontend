@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { 
   background, color, border, layout, position, space, typography, fontSize, fontStyle,
 } from 'styled-system';
@@ -13,6 +13,9 @@ const Box = styled.div<BoxProps>`
   ${position}
   ${typography}
   ${fontStyle}
+  ${({ cursor }) => cursor && css`
+    cursor: ${cursor}
+  `}
 `
 
 export default Box;

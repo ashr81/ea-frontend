@@ -19,7 +19,7 @@ export default {
   radii: [0, 1, 2, 4, 8, 16],
   colors: {
     black: 'rgb(21, 21, 21)',
-    white: 'rgb(244, 244, 244)',
+    white: '#fff',
     label: 'rgb(88, 88, 88)',
     border: '#ccc',
     options: '#f3f3f3'

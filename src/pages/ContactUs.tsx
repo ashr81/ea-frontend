@@ -1,23 +1,103 @@
-import React, { Fragment } from 'react';
-import { Flex, Text, Input } from '../components/atoms';
-import { BackgroundWithHeader } from '../components/molecules';
-import SelectionView from '../components/organisms/SelectionView';
+import React, { useReducer, useCallback, useEffect } from 'react';
+import ContactUs from '../components/templates/ContactUs';
+import ProductAPI from '../services/products.api';
+import PlatformAPI from '../services/platforms.api';
+import TopicAPI from '../services/topics.api';
+import {
+  contactFormReducer, contactFormInitialState,
+  SEARCH_INPUT_CHANGE,
+  PRODUCT_SELECTION,
+  PLATFORMS, PRODUCTS,
+  PLATFORM_SELECTION, RESET_SELECTED_PRODUCT,
+  RESET_SELECTED_PLATFORM
+} from '../reducers/contact-form.reducer';
 
-const ContactUs = () => {
+const ContactUsPage = () => {
+  const [state, dispatch] = useReducer(contactFormReducer, contactFormInitialState)
+  const onTextChange = useCallback((event) => dispatch({ type: SEARCH_INPUT_CHANGE, data: event.currentTarget.value }), [])
+
+  const onSelectOption = (event: React.SyntheticEvent<any>) => {
+    const { optionId, artifactType } = event.currentTarget.dataset;
+    if(artifactType === PRODUCTS) {
+      dispatch({ type: PRODUCT_SELECTION, data: {
+        id: parseInt(optionId)
+      }})
+    } else if(artifactType === PLATFORMS) {
+      dispatch({ type: PLATFORM_SELECTION, data: {
+        id: parseInt(optionId)
+      }})
+    }
+  }
+
+  const onChangeOption = (event: React.SyntheticEvent<any>) => {
+    const { artifactType } = event.currentTarget.dataset;
+    if(artifactType === PRODUCTS) {
+      dispatch({ type: RESET_SELECTED_PRODUCT })
+    } else if(artifactType === PLATFORMS) {
+      dispatch({ type: RESET_SELECTED_PLATFORM })
+    }
+  }
+
+  /**
+   * Fetch topic details on selection of a platform.
+   */
+  useEffect(() => {
+    if(state.selectedPlatform.id) {
+      (async function() {
+        try{
+          const response = await TopicAPI.fetch({params: { platform_id: state.selectedPlatform.id }})
+          dispatch({ data: {
+            topics: response.data
+          }})
+        } catch(err) {
+          console.error(`error in platforms.api.`)
+        }
+      })()
+    }
+  }, [state.selectedPlatform.id])
+
+  /**
+   * Gets all the platforms on selection of product.
+   */
+  useEffect(() => {
+    if(state.selectedProduct.id) {
+      (async function() {
+        try{
+          const response = await PlatformAPI.fetch({params: { product_id: state.selectedProduct.id }})
+          dispatch({ data: {
+            platforms: response.data
+          }})
+        } catch(err) {
+          console.error(`error in platforms.api.`)
+        }
+      })()
+    }
+  }, [state.selectedProduct.id])
+
+  /**
+   * Fetch products on page render and search query text change;
+   */
+  useEffect(() => {
+    (async function() {
+      try{
+        const response = await ProductAPI.fetch({params: { query: state.searchQuery }})
+        dispatch({ data: {
+          products: response.data
+        }})
+      } catch(err) {
+        console.error(`error in products.api.`)
+      }
+    })()
+  }, [state.searchQuery])
+
   return (
-    <Fragment>
-      <BackgroundWithHeader>
-        <Text as='h3' fontSize='xxxxl' my={0} px={5} py={3}>CASE INFORMATION</Text>
-      </BackgroundWithHeader>
-      <Flex flexDirection='column' position='relative' my={4}>
-        <Text color='label' fontSize='xs' my={2} mx={6}>*Indicates required field</Text>
-        <Text fontSize='xl' mx={6}>What can we help you with?</Text>
-        <Text fontSize='xl' mx={6}>Select the game or service.*</Text>
-        <Input my={4} fontSize='xl' placeholder='Search any EA product' mx={6}/>
-        <SelectionView options={[]}/>
-      </Flex>
-    </Fragment>
+    <ContactUs
+      onTextChange={onTextChange}
+      onSelectOption={onSelectOption}
+      onChangeOption={onChangeOption}
+      {...state}
+    />
   )
 }
 
-export default ContactUs;
+export default ContactUsPage;
