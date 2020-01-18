@@ -1,14 +1,13 @@
 import React from 'react';
-import { ResponsiveLayout } from '../molecules';
-
+import { Flex } from '../atoms';
 interface LayoutProps {
   children: React.ReactChild | React.ReactFragment
 }
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <ResponsiveLayout flexDirection='column'>
+    <Flex flexDirection='column'>
       {children}
-    </ResponsiveLayout>
+    </Flex>
   )
 }
 

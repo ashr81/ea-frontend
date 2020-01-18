@@ -9,7 +9,7 @@ const BackgroundWithHeader = ({
   children
 }: Props) => {
   return (
-    <Flex background={`url(${meshBackground}) repeat-x`} position='absolute' width='100%' left='0'>
+    <Flex background={`url(${meshBackground}) repeat-x`} position='relative' width='100%' left='0'>
       {children}
     </Flex>
   )
