@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Flex, Text } from '../atoms';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   onChangeOption: (event: React.SyntheticEvent) => void;
 }
 
-const SelectionView: React.FunctionComponent<Props> = ({
+const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   options,
   selectedOption,
   onSelectOption,
@@ -23,18 +23,22 @@ const SelectionView: React.FunctionComponent<Props> = ({
     <Flex backgroundColor='options' position='relative'>
       <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>
         {selectedOption.id ? 
-          <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3}>
-            <Text fontSize='xl'>{selectedOption.name}</Text>
-          </Flex>
+          <Fragment>
+            <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3}>
+              <Text fontSize='xl' alignItems='center'>{selectedOption.name}</Text>
+            </Flex>
+            <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' height='250px' m={3}>
+              <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption}>Change game</Text>
+            </Flex>
+          </Fragment>
         : options.map(option => (
           <Flex width='180px' cursor='pointer' data-artifact-type={artifactType} data-option-id={option.id} onClick={onSelectOption} alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3} key={option.id}>
-            <Text fontSize='xl'>{option.name}</Text>
+            <Text fontSize='xl' alignItems='center'>{option.name}</Text>
           </Flex>
         ))}
-        {selectedOption.id ? <Text data-artifact-type={artifactType} onClick={onChangeOption}>Change game</Text> : null}
       </Flex>
     </Flex>
   )
 }
 
-export default SelectionView;
+export default GridSingleSelectionView;

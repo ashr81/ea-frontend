@@ -22,6 +22,7 @@ export default {
     white: '#fff',
     label: 'rgb(88, 88, 88)',
     border: '#ccc',
-    options: '#f3f3f3'
+    options: '#f3f3f3',
+    blue: '#0464dd'
   }
 }

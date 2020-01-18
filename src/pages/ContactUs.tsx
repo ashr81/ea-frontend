@@ -3,18 +3,25 @@ import ContactUs from '../components/templates/ContactUs';
 import ProductAPI from '../services/products.api';
 import PlatformAPI from '../services/platforms.api';
 import TopicAPI from '../services/topics.api';
+import IssueAPI from '../services/issues.api';
+import FeedbackAPI from '../services/feedback.api';
 import {
   contactFormReducer, contactFormInitialState,
-  SEARCH_INPUT_CHANGE,
+  INPUT_CHANGE, SET_NO_ISSUES,
   PRODUCT_SELECTION,
   PLATFORMS, PRODUCTS,
   PLATFORM_SELECTION, RESET_SELECTED_PRODUCT,
-  RESET_SELECTED_PLATFORM
+  RESET_SELECTED_PLATFORM,
+  TOPICS, ISSUE_SELECTION,
+  TOPIC_SELECTION, ISSUES
 } from '../reducers/contact-form.reducer';
 
 const ContactUsPage = () => {
   const [state, dispatch] = useReducer(contactFormReducer, contactFormInitialState)
-  const onTextChange = useCallback((event) => dispatch({ type: SEARCH_INPUT_CHANGE, data: event.currentTarget.value }), [])
+
+  const onTextChange = useCallback((event) => dispatch({ type: INPUT_CHANGE, data: {
+    name: event.currentTarget.name, value: event.currentTarget.value
+  }}), [])
 
   const onSelectOption = (event: React.SyntheticEvent<any>) => {
     const { optionId, artifactType } = event.currentTarget.dataset;
@@ -26,6 +33,27 @@ const ContactUsPage = () => {
       dispatch({ type: PLATFORM_SELECTION, data: {
         id: parseInt(optionId)
       }})
+    } else if(artifactType === TOPICS) {
+      dispatch({ type: TOPIC_SELECTION, data: {
+        id: parseInt(optionId)
+      }})
+    } else if(artifactType === ISSUES) {
+      dispatch({ type: ISSUE_SELECTION, data: {
+        id: parseInt(optionId)
+      }})
+    }
+  }
+
+  const onFormSubmit = async () => {
+    try {
+      const { email, description, subject } = state;
+      const response = await FeedbackAPI.submitForm({
+        data: {
+          email, description, subject
+        }
+      })
+    } catch(error) {
+      console.error(`error sending email.`)
     }
   }
 
@@ -37,6 +65,29 @@ const ContactUsPage = () => {
       dispatch({ type: RESET_SELECTED_PLATFORM })
     }
   }
+
+  /**
+   * Fetch issue details on selection of topics.
+   */
+  useEffect(() => {
+    if(state.selectedTopic.id) {
+      (async function() {
+        try{
+          const response = await IssueAPI.fetch({params: { topic_id: state.selectedTopic.id }})
+          if(response.data.error) {
+            dispatch({type: SET_NO_ISSUES})
+          } else {
+            dispatch({ data: {
+              issues: response.data,
+              noIssues: false
+            }})
+          }
+        } catch(err) {
+          console.error(`error in issues.api.`)
+        }
+      })()
+    }
+  }, [state.selectedTopic.id])
 
   /**
    * Fetch topic details on selection of a platform.
@@ -95,6 +146,7 @@ const ContactUsPage = () => {
       onTextChange={onTextChange}
       onSelectOption={onSelectOption}
       onChangeOption={onChangeOption}
+      onFormSubmit={onFormSubmit}
       {...state}
     />
   )

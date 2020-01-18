@@ -25,8 +25,12 @@ export interface RequestOptions {
   headers?: {};
   params?: {};
   method?: 'get' | 'post';
+  data?: {}
 }
 
 export interface InputProps extends FlexProps {
   value: string;
+  name?: string;
+  disabled?: boolean;
+  as?: string;
 }
