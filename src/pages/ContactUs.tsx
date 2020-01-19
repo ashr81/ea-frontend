@@ -9,7 +9,7 @@ import useFetchAPI from '../customHooks/useFetchAPI';
 import {
   contactFormReducer, contactFormInitialState,
   INPUT_CHANGE, SET_NO_ISSUES,
-  PRODUCT_SELECTION,
+  PRODUCT_SELECTION, SEARCH_QUERY_CHANGE,
   PLATFORMS, PRODUCTS,
   PLATFORM_SELECTION, RESET_SELECTED_PRODUCT,
   RESET_SELECTED_PLATFORM,
@@ -143,10 +143,9 @@ const ContactUsPage = () => {
   )
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
     dispatch({ 
-      type: INPUT_CHANGE, data: {
-        name: event.currentTarget.name, value: event.currentTarget.value
-      }
+      type: name === 'searchQuery' ? SEARCH_QUERY_CHANGE : INPUT_CHANGE, data: { name, value }
     })
   }
 

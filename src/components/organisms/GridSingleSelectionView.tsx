@@ -15,13 +15,13 @@ interface Props {
 }
 
 const GridSingleSelectionView: React.FunctionComponent<Props> = ({
-  options,
-  selected,
-  isLoading,
-  onSelectOption,
-  artifactType,
-  onChangeOption
+  options, selected,
+  isLoading, onSelectOption,
+  artifactType, onChangeOption
 }) => {
+  if(!isLoading && options.length === 0 && !selected.id) {
+    return (<Flex>No {artifactType} available</Flex>)
+  }
   return (
     <Flex backgroundColor='options' position='relative'>
       <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>

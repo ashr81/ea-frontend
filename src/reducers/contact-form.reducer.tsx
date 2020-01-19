@@ -18,6 +18,7 @@ export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RESET_SELECTED_PRODUCT = 'RESET_SELECTED_PRODUCT';
 export const RESET_SELECTED_PLATFORM = 'RESET_SELECTED_PLATFORM';
 export const SET_NO_ISSUES = 'SET_NO_ISSUES';
+export const SEARCH_QUERY_CHANGE = 'SEARCH_QUERY_CHANGE';
 
 export const contactFormInitialState = {
   searchQuery: '',
@@ -57,6 +58,15 @@ export const contactFormReducer = (
     case RESET_STATE: {
       return {
         ...contactFormInitialState
+      }
+    } case SEARCH_QUERY_CHANGE: {
+      return {
+        ...state,
+        searchQuery: rest.data.value,
+        products: {
+          ...state.products,
+          isLoading: true
+        }
       }
     } case INPUT_CHANGE: {
       return {

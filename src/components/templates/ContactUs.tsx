@@ -60,7 +60,7 @@ const ContactUs = ({
         <Text color='label' fontSize='xs' my={2} mx={6}>*Indicates required field</Text>
         <Text fontSize='xl' mx={6}>What can we help you with?</Text>
         <Text fontSize='xl' mx={6} mb={3} data-testid='products-title'>Select the game or service.*</Text>
-        {showSearchInput ? <Input my={4} fontSize='xl' name='searchQuery' placeholder='Search any EA product' mx={6} onChange={onTextChange} value={searchQuery}/> : null}
+        {showSearchInput ? <Input my={4} fontSize='xl' data-testid='product-search-query' name='searchQuery' placeholder='Search any EA product' mx={6} onChange={onTextChange} value={searchQuery}/> : null}
           <GridSingleSelectionView
             {...products}
             onSelectOption={onSelectOption}

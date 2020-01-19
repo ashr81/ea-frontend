@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForElement, fireEvent, wait } from '../../utils/test-utils';
+import { render, cleanup, waitForElement, fireEvent, wait, queryAllByTestId } from '../../utils/test-utils';
 import ContactUsPage from '../ContactUs';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -59,6 +59,26 @@ test('resolution of api calls on selection of products, platforms, topics and is
   fireEvent.click(topicFromMockedData)
   const issueFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${ISSUES}-14`))
   expect(issueFromMockedData).toBeDefined()
+})
+
+test('on search input make an api in successive intervals.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).replyOnce(200, productsJson)
+  const searchQuery = 'star';
+  const filteredProductJson = productsJson.filter(product => product.name.indexOf(searchQuery) !== -1)
+  axiosAdapter.onGet(API_PRODUCTS, { params: { query: searchQuery }}).reply(200, filteredProductJson)
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />);
+  const searchInput = await waitForElement(() => getByTestId('product-search-query'))
+  expect(searchInput).toBeInTheDocument()
+  const productPresentBeforeSearch = await waitForElement(() => queryByTestId(`grid-single-selection-view-${PRODUCTS}-8`))
+  const productContainsSearchTerm = await waitForElement(() => queryByTestId(`grid-single-selection-view-${PRODUCTS}-1`))
+  expect(productPresentBeforeSearch).toBeInTheDocument()
+  expect(productContainsSearchTerm).toBeInTheDocument()
+  fireEvent.change(searchInput, {target: { name: 'searchQuery', value: searchQuery }})
+  // product with ID: 8 has name madden
+  const disappearedProduct = await wait(() => queryByTestId(`grid-single-selection-view-${PRODUCTS}-8`))
+  const productInSearchTermAfterSearch = await waitForElement(() => queryByTestId(`grid-single-selection-view-${PRODUCTS}-1`))
+  expect(productInSearchTermAfterSearch).toBeInTheDocument()
+  expect(disappearedProduct).toBeUndefined()
 })
 
 test('tests presence of email, description and subject fields after all options selected.', async () => {
@@ -141,6 +161,7 @@ test('clicking change name on products removes platforms from view.', async () =
 test('clicking change name for platforms show all platforms as list view.', async () => {
   axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
   axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  axiosAdapter.onGet(API_TOPICS).reply(200, topicsJson)
   // getBy raises error when record not found. Doesn't work on cases to check for not presence.
   const { getByTestId, queryByTestId } = render(<ContactUsPage />)
 
