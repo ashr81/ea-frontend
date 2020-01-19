@@ -15,7 +15,7 @@ const MailForm: React.FunctionComponent<Props> = ({
 }: Props) => {
   const buttonDisabled = !(emailValidator(email) && description)
   return (
-    <Flex flexDirection='column'>
+    <Flex flexDirection='column' as='form'>
       <Input my={4}
         type='email'
         data-testid='mail-form-input-email'
