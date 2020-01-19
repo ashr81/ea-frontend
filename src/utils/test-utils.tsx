@@ -1,24 +1,19 @@
-import React from 'react';
-import { render } from '@testing-library/react'
+import React, { ReactHTMLElement } from 'react';
+import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, withRouter } from 'react-router-dom';
 import theme from '../theme';
 
-interface Props {
-  children: React.FC;
-}
-const AllTheProviders = ({ children }: Props) => {
-  return (
+
+const customRender = (ui: React.ReactNode) => {
+  return render(
     <ThemeProvider theme={theme}>
-        {children}
-    </ThemeProvider>
-  )
+      <BrowserRouter>
+        {ui}
+      </BrowserRouter>
+    </ThemeProvider>)
 }
 
-const customRender = (ui, options) =>
-  render(ui, { wrapper: AllTheProviders, ...options })
+export * from '@testing-library/react';
 
-// re-export everything
-export * from '@testing-library/react'
-
-// override render method
-export { customRender as render }
+export { customRender as render };
