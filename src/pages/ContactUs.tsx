@@ -143,17 +143,18 @@ const ContactUsPage = () => {
     }, [])
   )
 
-  // altering api calling using debounce until user stops typing.
-  useEffect(
-    debounce(() => dispatch({
-      data: {
-        products: {
-          ...state.products,
-          isLoading: true
-        }
+  // To preserve the once called debounce function using useCallback here.
+  const debounceFunc = useCallback(debounce(() => dispatch({
+    data: {
+      products: {
+        ...state.products,
+        isLoading: true
       }
-    }), 500)
-  , [state.searchQuery])
+    }
+  }), 500), [])
+
+  // altering api calling using debounce until user stops typing.
+  useEffect(() => debounceFunc(), [state.searchQuery])
 
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
