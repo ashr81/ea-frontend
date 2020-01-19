@@ -60,3 +60,62 @@ test('resolution of api calls on selection of products, platforms, topics and is
   const issueFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${ISSUES}-14`))
   expect(issueFromMockedData).toBeDefined()
 })
+
+test('tests presence of email, description and subject fields after all options selected.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
+  axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  axiosAdapter.onGet(API_TOPICS).reply(200, topicsJson)
+  axiosAdapter.onGet(API_ISSUES).reply(200, issuesJson)
+  // getBy raises error when record not found. Doesn't work on cases to check for not presence.
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />)
+
+  const emailInputBeforeSelection = queryByTestId(`mail-form-input-email`)
+  expect(emailInputBeforeSelection).not.toBeInTheDocument()
+
+  const productFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PRODUCTS}-2`))
+  fireEvent.click(productFromMockedData)
+  const platformFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  fireEvent.click(platformFromMockedData)
+  const topicFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${TOPICS}-5`))
+  fireEvent.click(topicFromMockedData)
+  const issueFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${ISSUES}-14`))
+  fireEvent.click(issueFromMockedData)
+  
+  const emailInput = queryByTestId(`mail-form-input-email`)
+  expect(emailInput).toBeInTheDocument()
+  const subjectInput = queryByTestId(`mail-form-input-subject`)
+  expect(subjectInput).toBeInTheDocument()
+  const descriptionInput = queryByTestId(`mail-form-input-description`)
+  expect(descriptionInput).toBeInTheDocument()
+})
+
+test('tests submission disabled until valid entries are entered into inputs.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
+  axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  axiosAdapter.onGet(API_TOPICS).reply(200, topicsJson)
+  axiosAdapter.onGet(API_ISSUES).reply(200, issuesJson)
+  // getBy raises error when record not found. Doesn't work on cases to check for not presence.
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />)
+
+  const emailInputBeforeSelection = queryByTestId(`mail-form-input-email`)
+  expect(emailInputBeforeSelection).not.toBeInTheDocument()
+
+  const productFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PRODUCTS}-2`))
+  fireEvent.click(productFromMockedData)
+  const platformFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  fireEvent.click(platformFromMockedData)
+  const topicFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${TOPICS}-5`))
+  fireEvent.click(topicFromMockedData)
+  const issueFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${ISSUES}-14`))
+  fireEvent.click(issueFromMockedData)
+  
+  const emailInput = queryByTestId('mail-form-input-email')
+  expect(emailInput).toBeInTheDocument()
+  const subjectInput = queryByTestId('mail-form-input-subject')
+  expect(subjectInput).toBeInTheDocument()
+  const descriptionInput = queryByTestId('mail-form-input-description')
+  expect(descriptionInput).toBeInTheDocument()
+  const formSubmitButton = getByTestId('mail-form-button-submit')
+  expect(formSubmitButton).toBeInTheDocument()
+  expect(formSubmitButton).toBeDisabled()
+})
