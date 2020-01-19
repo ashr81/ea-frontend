@@ -139,12 +139,13 @@ const ContactUsPage = () => {
    */
   useEffect(() => {
     (async function() {
-      try{
+      try {
         const response = await ProductAPI.fetch({params: { query: state.searchQuery }})
         dispatch({ data: {
           products: response.data
         }})
       } catch(err) {
+        console.log(`error is: ${JSON.stringify(err)}`)
         console.error(`error in products.api.`)
       }
     })()

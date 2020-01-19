@@ -22,6 +22,7 @@ const GridMultiSelectionView: React.FunctionComponent<Props> = ({
       {options.map(option => (
         <Flex width='240px'
           cursor='pointer'
+          data-testid={`grid-multi-selection-view-${artifactType}-${option.id}`}
           data-artifact-type={artifactType}
           data-option-id={option.id}
           onClick={onSelectOption}

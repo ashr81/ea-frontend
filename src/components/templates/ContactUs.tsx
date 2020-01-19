@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback } from 'react';
 import { Flex, Text, Input } from '../atoms';
 import { BackgroundWithHeader } from '../molecules';
-import GridAlbumSelectionView from '../organisms/GridSingleSelectionView';
+import GridSingleSelectionView from '../organisms/GridSingleSelectionView';
 import GridMultiSelectionView from '../organisms/GridMultiSelectionView';
 import MailForm from '../organisms/MailForm';
 import { PRODUCTS, PLATFORMS, TOPICS, ISSUES } from '../../reducers/contact-form.reducer';
@@ -63,7 +63,7 @@ const ContactUs = ({
   }
   return (
     <Fragment>
-      <BackgroundWithHeader>
+      <BackgroundWithHeader data-testid='case-information-header'>
         <Text as='h3' fontSize='xxxxl' my={0} px={5} py={3}>CASE INFORMATION</Text>
       </BackgroundWithHeader>
       <Flex flexDirection='column' position='relative' my={4}>
@@ -71,7 +71,7 @@ const ContactUs = ({
         <Text fontSize='xl' mx={6}>What can we help you with?</Text>
         <Text fontSize='xl' mx={6} mb={3}>Select the game or service.*</Text>
         {showSearchInput ? <Input my={4} fontSize='xl' name='searchQuery' placeholder='Search any EA product' mx={6} onChange={onTextChange} value={searchQuery}/> : null}
-          <GridAlbumSelectionView
+          <GridSingleSelectionView
             options={products}
             selectedOption={selectedProduct}
             onSelectOption={onSelectOption}
@@ -79,7 +79,7 @@ const ContactUs = ({
             artifactType={PRODUCTS}
           />
         {showPlatforms ? <Fragment><Text fontSize='xl' mx={6} my={2}>What platform are you playing on?*</Text>
-          <GridAlbumSelectionView
+          <GridSingleSelectionView
             options={platforms}
             selectedOption={selectedPlatform}
             onSelectOption={onSelectOption}

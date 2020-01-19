@@ -10,7 +10,7 @@ import Navbar from './components/organisms/Navbar';
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Navbar/>
+      <Navbar />
       <Layout>
         <Switch>
           {routes}

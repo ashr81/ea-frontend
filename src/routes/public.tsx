@@ -12,6 +12,6 @@ export const CONTACT_US = '/contact-us';
 export default [
   {path: HOME, component: HomePage, exact: true},
   {path: CONTACT_US, component: ContactUsPage, exact: true}
-].map(({component, ...route}) => (
-  <Route {...route} component={withSuspenseLoaderHOC(component)} />
+].map(({component, ...route}, index) => (
+  <Route {...route} component={withSuspenseLoaderHOC(component)} key={index}/>
 ))

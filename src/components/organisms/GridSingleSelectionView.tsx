@@ -28,11 +28,11 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
               <Text fontSize='xl' alignItems='center'>{selectedOption.name}</Text>
             </Flex>
             <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' height='250px' m={3}>
-              <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption}>Change game</Text>
+              <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption} data-testid='grid-single-selection-view-change-name'>Change game</Text>
             </Flex>
           </Fragment>
         : options.map(option => (
-          <Flex width='180px' cursor='pointer' data-artifact-type={artifactType} data-option-id={option.id} onClick={onSelectOption} alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3} key={option.id}>
+          <Flex width='180px' cursor='pointer' data-testid={`grid-single-selection-view-${artifactType}-${option.id}`} data-artifact-type={artifactType} data-option-id={option.id} onClick={onSelectOption} alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3} key={option.id}>
             <Text fontSize='xl' alignItems='center'>{option.name}</Text>
           </Flex>
         ))}
