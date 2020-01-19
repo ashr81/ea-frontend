@@ -1,5 +1,8 @@
-import React, { ReactElement, Fragment } from 'react';
-import { Image, Flex } from '../atoms';
+/**
+ * Adds background for the header.
+ */
+import React, { ReactElement } from 'react';
+import { Flex } from '../atoms';
 import { meshBackground } from '../../assets/images';
 
 interface Props {

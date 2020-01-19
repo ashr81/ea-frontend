@@ -1,8 +1,10 @@
+/**
+ * Path/Routes to public paths.
+ */
 import React, { lazy } from 'react';
 import withSuspenseLoaderHOC from '../utils/withSuspenseLoaderHOC';
 import { Route } from 'react-router-dom';
 import withErrorBoundary from '../utils/withErrorBoundary';
-;
 
 const HomePage = lazy(() => import('../pages/Home'));
 const ContactUsPage = lazy(() => import('../pages/ContactUs'));

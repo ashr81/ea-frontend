@@ -1,8 +1,11 @@
+/**
+ * Breadcrumb to show user present location.
+ */
 import React, { useCallback } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Flex, Text } from '../atoms';
 import { CapitalizedText } from '.';
-import { HOME, CONTACT_US } from '../../routes/public';
+import { HOME } from '../../routes/public';
 
 /**
  * uses react-router-dom to find the present route and 

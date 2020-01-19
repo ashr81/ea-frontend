@@ -1,3 +1,6 @@
+/**
+ * Adds extra capabilities to html img tag.
+ */
 import styled from 'styled-components';
 import { background, position, space, backgroundImage, backgroundRepeat } from 'styled-system';
 import { ImageProps } from '../../react-app-env';

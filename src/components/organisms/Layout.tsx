@@ -1,3 +1,6 @@
+/**
+ * Initial layout with breadcrumb as static on route changes.
+ */
 import React from 'react';
 import { Flex } from '../atoms';
 interface LayoutProps {

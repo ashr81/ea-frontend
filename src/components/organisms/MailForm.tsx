@@ -1,3 +1,7 @@
+/**
+ * Mail form interacts with parent component in changing state and sending data
+ * As well for submission of the form.
+ */
 import React from 'react';
 import { Flex, Input, Button } from '../atoms';
 import { email as emailValidator } from '../../utils/validators';

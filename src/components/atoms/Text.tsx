@@ -1,5 +1,9 @@
+/**
+ * Extends Flex styled components and using as polymorphic prop
+ * and dynamically swaping the element type to p, h1-h6.
+ */
 import styled, { css } from 'styled-components';
-import { textStyle, typography, fontSize } from 'styled-system';
+import { typography, fontSize } from 'styled-system';
 import { Flex } from '.';
 import { TextProps } from '../../react-app-env';
 

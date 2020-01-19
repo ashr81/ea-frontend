@@ -20,6 +20,9 @@ export const RESET_SELECTED_PLATFORM = 'RESET_SELECTED_PLATFORM';
 export const SET_NO_ISSUES = 'SET_NO_ISSUES';
 export const SEARCH_QUERY_CHANGE = 'SEARCH_QUERY_CHANGE';
 
+/**
+ * Initial reducer state.
+ */
 export const contactFormInitialState = {
   searchQuery: '',
   products: {
@@ -49,6 +52,11 @@ export const contactFormInitialState = {
   isSubmittedSuccessfully: false
 }
 
+/**
+ * 
+ * @param state - existing state values from the reducer
+ * @param action - changes as action under data parameter.
+ */
 export const contactFormReducer = (
   state: any,
   action: {type?: string; data?: any}

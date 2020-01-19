@@ -1,4 +1,8 @@
-import React, { Fragment, useCallback } from 'react';
+/**
+ * Snapshot of the UI user see but logic between individual component is
+ * decided by component from pages.
+ */
+import React, { Fragment } from 'react';
 import { Flex, Text, Input } from '../atoms';
 import { BackgroundWithHeader } from '../molecules';
 import GridSingleSelectionView from '../organisms/GridSingleSelectionView';

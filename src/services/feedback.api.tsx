@@ -1,3 +1,6 @@
+/**
+ * API service file where services specific to feedback are hosted.
+ */
 import request from '../utils/request';
 import { API_FEEDBACK } from '../routes/api';
 import { RequestOptions } from '../react-app-env';

@@ -1,3 +1,7 @@
+/**
+ * It contains multiple atoms and molecules which is used at multiple places
+ * across the application.
+ */
 import React from 'react';
 import { Flex, Text } from '../atoms';
 import { GridMultiSelectionViewLoader } from '../../content-loaders'

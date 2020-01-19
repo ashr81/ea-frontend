@@ -1,3 +1,6 @@
+/**
+ * Theme object required for styled towards styled-components.
+ */
 const colors = {
   black: 'rgb(21, 21, 21)',
   white: '#fff',

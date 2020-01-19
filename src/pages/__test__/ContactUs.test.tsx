@@ -1,3 +1,6 @@
+/**
+ * Test cases for the page contact-us.
+ */
 import React from 'react';
 import { render, cleanup, waitForElement, fireEvent, wait } from '../../utils/test-utils';
 import ContactUsPage from '../ContactUs';

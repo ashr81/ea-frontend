@@ -1,3 +1,7 @@
+/**
+ * Custom Hook that makes an API call when the
+ * loading flag is updated to true from where it is called.
+ */
 import { useEffect } from 'react';
 
 type APIFunc = () => Promise<{data: {}}>;

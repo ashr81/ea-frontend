@@ -1,5 +1,8 @@
-import styled, { css } from 'styled-components';
-import { flexbox, flex } from 'styled-system';
+/**
+ * Extends Box styled components with extra flexbox stylings
+ */
+import styled from 'styled-components';
+import { flexbox } from 'styled-system';
 import { FlexProps } from '../../react-app-env';
 import { Box } from '.';
 

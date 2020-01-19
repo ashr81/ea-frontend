@@ -1,3 +1,6 @@
+/**
+ * Page when user navigated to a page that doesn't exist in the app.
+ */
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Flex, Button } from '../../components/atoms';

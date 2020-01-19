@@ -1,3 +1,7 @@
+/**
+ * It contains multiple atoms and molecules which is used at multiple places
+ * across the application.
+ */
 import React, { Fragment } from 'react';
 import { Flex, Text } from '../atoms';
 import { GridSingleSelectionViewLoader } from '../../content-loaders';

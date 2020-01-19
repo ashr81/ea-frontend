@@ -1,3 +1,7 @@
+/**
+ * Extends Flex styled components and using as polymorphic prop
+ * and dynamically swaping the element type to input.
+ */
 import styled from 'styled-components';
 import { Flex } from '.';
 import { InputProps } from '../../react-app-env'

@@ -1,3 +1,6 @@
+/**
+ * Extends Text styled components and adds extra styling text-transform.
+ */
 import styled from 'styled-components';
 import { Text } from '../atoms';
 

@@ -1,3 +1,7 @@
+/**
+ * Acts as Fallback Component within error boundaries.
+ * When UI breaks this component is rendered from withErrorBoundary component.
+ */
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Flex, Button } from '../../components/atoms';

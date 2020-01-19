@@ -1,3 +1,6 @@
+/**
+ * API service file where services specific to issues are hosted.
+ */
 import request from '../utils/request';
 import { API_ISSUES } from '../routes/api';
 import { RequestOptions } from '../react-app-env';

@@ -1,3 +1,9 @@
+
+/**
+ * Page mapped to routes contact-us.
+ * It contains all state logic and updates according to UI changes.
+ * Component where logic is present.
+ */
 import React, { useReducer, useCallback, InputHTMLAttributes, useEffect, FormEvent } from 'react';
 import ContactUs from '../components/templates/ContactUs';
 import ProductAPI from '../services/products.api';
