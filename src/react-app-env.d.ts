@@ -24,6 +24,7 @@ export interface TextProps extends BoxProps, TextStyleProps {
 export interface ButtonProps extends FlexProps {
   variant?: buttonVariantType;
   disabled?: boolean;
+  type?: string;
 }
 
 export interface ImageProps extends BackgroundImageProps, PositionProps, SpaceProps, BackgroundProps {}

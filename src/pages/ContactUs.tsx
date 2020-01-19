@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, InputHTMLAttributes, useEffect } from 'react';
+import React, { useReducer, useCallback, InputHTMLAttributes, useEffect, FormEvent } from 'react';
 import ContactUs from '../components/templates/ContactUs';
 import ProductAPI from '../services/products.api';
 import PlatformAPI from '../services/platforms.api';
@@ -40,7 +40,8 @@ const ContactUsPage = () => {
     }
   }
 
-  const onFormSubmit = async () => {
+  const onFormSubmit = async (event: FormEvent) => {
+    event.preventDefault()
     try {
       const {
         email, description, subject, products,

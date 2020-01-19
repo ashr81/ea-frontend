@@ -15,7 +15,7 @@ const MailForm: React.FunctionComponent<Props> = ({
 }: Props) => {
   const buttonDisabled = !(emailValidator(email) && description)
   return (
-    <Flex flexDirection='column' as='form'>
+    <Flex flexDirection='column' as='form' onSubmit={onFormSubmit}>
       <Input my={4}
         type='email'
         data-testid='mail-form-input-email'
@@ -36,12 +36,12 @@ const MailForm: React.FunctionComponent<Props> = ({
         placeholder='What is your query?'
         mx={6} name='description' onChange={onTextChange} value={description}
       />
-      <Button cursor={buttonDisabled ? 'not-allowed' : 'pointer'}
+      <Button type='submit' cursor={buttonDisabled ? 'not-allowed' : 'pointer'}
         data-testid='mail-form-button-submit'
         mx={6}
         disabled={buttonDisabled}
         borderStyle='none' width='200px'
-        p={3} onClick={onFormSubmit}
+        p={3}
       >Email Us</Button>
     </Flex>
   )
