@@ -5,7 +5,7 @@ import {
   BackgroundImageProps, TypographyProps, FontStyleProps
 } from 'styled-system';
 import { TextStyle } from 'react-native';
-import themes from './themes';
+import theme from './theme';
 
 type fontSizeType = keyof theme.fontSizes;
 export interface BoxProps extends BackgroundProps, ColorProps, BorderProps, LayoutProps, PositionProps, SpaceProps, TypographyProps, FontStyleProps {
