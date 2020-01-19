@@ -51,7 +51,7 @@ const ContactUs = ({
   const showPlatforms = !!selectedProduct.id;
   const showTopics = !!selectedPlatform.id;
   const showIssues = !!selectedTopic.id && !noIssues;
-  const showMailForm = true || !!selectedIssue.id || !!selectedTopic.id && noIssues;
+  const showMailForm = !!selectedIssue.id || !!selectedTopic.id && noIssues;
   return (
     <Fragment>
       <BackgroundWithHeader>
