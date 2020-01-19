@@ -23,14 +23,22 @@ export const SET_NO_ISSUES = 'SET_NO_ISSUES';
 
 export const contactFormInitialState = {
   searchQuery: '',
-  selectedProduct: {},
-  products: [],
-  selectedPlatform: {},
-  platforms: [], // platforms available for the selected product.
-  selectedTopic: {},
-  topics: [], // topics available for the selected platforms.
-  selectedIssue: {},
-  issues: [],  // issues available for the selected topics.
+  products: {
+    options: [],
+    selected: {}
+  },
+  platforms: {
+    options: [],
+    selected: {}
+  },
+  topics: {
+    options: [],
+    selected: {}
+  },
+  issues: {
+    options: [],
+    selected: {}
+  },
   noIssues: false, // true when selected topic doesn't have any issues linked to it.
   email: '',
   subject: '',
@@ -57,31 +65,45 @@ export const contactFormReducer = (
       const productId = rest.data.id;
       return {
         ...state,
-        selectedProduct: state.products.filter((product: {id: number}) => product.id === productId)[0]
+        products: {
+          ...state.products,
+          selected: state.products.options.filter((product: {id: number}) => product.id === productId)[0]
+        }
       }
     } case PLATFORM_SELECTION: {
       const platformId = rest.data.id;
       return {
         ...state,
-        selectedPlatform: state.platforms.filter((platform: {id: number}) => platform.id === platformId)[0]
+        platforms: {
+          ...state.platforms,
+          selected: state.platforms.options.filter((platform: {id: number}) => platform.id === platformId)[0]
+        }
       }
     } case TOPIC_SELECTION: {
       const topicId = rest.data.id
       return {
         ...state,
-        selectedTopic: state.topics.filter((topic: {id: number}) => topic.id === topicId)[0],
-        selectedIssue: {},
-        issues: [],
+        topics: {
+          ...state.topics,
+          selected: state.topics.options.filter((topic: {id: number}) => topic.id === topicId)[0],
+        },
+        issues: {
+          options: [],
+          selected: {}
+        },
         noIssues: false
       }
     } case ISSUE_SELECTION: {
       const issueId = rest.data.id
-      const selectedIssue = state.issues.filter((issue: {id: number}) => issue.id === issueId)[0]
+      const selectedIssue = state.issues.options.filter((issue: {id: number}) => issue.id === issueId)[0]
       return {
         ...state,
-        selectedIssue,
+        issues: {
+          ...state.issues,
+          selected: selectedIssue,
+        },
         noIssues: false,
-        subject: `${state.selectedProduct.name} - ${state.selectedPlatform.name} - ${state.selectedTopic.name} - ${selectedIssue.name}`
+        subject: `${state.products.selected.name} - ${state.platforms.selected.name} - ${state.topics.selected.name} - ${selectedIssue.name}`
       }
     } case RESET_SELECTED_PRODUCT: {
       return {
@@ -98,18 +120,25 @@ export const contactFormReducer = (
     } case RESET_SELECTED_PLATFORM: {
       return {
         ...state,
-        selectedPlatform: {},
-        topics: [],
-        selectedTopic: {},
-        issues: [],
-        selectedIssue: {},
+        platforms: {
+          ...state.platforms,
+          selected: {}
+        },
+        topics: {
+          selected: {},
+          options: []
+        },
+        issues: {
+          selected: {},
+          options: []
+        },
         noIssues: false
       }
     } case SET_NO_ISSUES: {
       return {
         ...state,
         noIssues: true,
-        subject: `${state.selectedProduct.name} - ${state.selectedPlatform.name} - ${state.selectedTopic.name}`
+        subject: `${state.products.selected.name} - ${state.platforms.selected.name} - ${state.topics.selected.name}`
       }
     } default: {
       return {

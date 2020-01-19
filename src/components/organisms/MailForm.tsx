@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Input, Button } from '../atoms';
-
+import { email as emailValidator } from '../../utils/validators';
 interface Props {
   subject: string;
   description: string;
@@ -13,9 +13,11 @@ const MailForm: React.FunctionComponent<Props> = ({
   email, description, subject,
   onTextChange, onFormSubmit
 }: Props) => {
+  const buttonDisabled = !(emailValidator(email) && description)
   return (
     <Flex flexDirection='column'>
       <Input my={4}
+        type='email'
         data-testid='mail-form-input-email'
         fontSize='xl'
         placeholder='Enter your email'
@@ -34,12 +36,12 @@ const MailForm: React.FunctionComponent<Props> = ({
         placeholder='What is your query?'
         mx={6} name='description' onChange={onTextChange} value={description}
       />
-      <Button cursor='pointer'
+      <Button cursor={buttonDisabled ? 'not-allowed' : 'pointer'}
         data-testid='mail-form-button-submit'
-        mx={6} borderRadius={3}
+        mx={6}
+        disabled={buttonDisabled}
         borderStyle='none' width='200px'
-        p={3} backgroundColor='blue'
-        color='white' onClick={onFormSubmit}
+        p={3} onClick={onFormSubmit}
       >Email Us</Button>
     </Flex>
   )

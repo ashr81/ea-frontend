@@ -8,6 +8,7 @@ import { TextStyle } from 'react-native';
 import theme from './theme';
 
 type fontSizeType = keyof theme.fontSizes;
+type buttonVariantType = keyof typeof theme.buttons
 export interface BoxProps extends BackgroundProps, ColorProps, BorderProps, LayoutProps, PositionProps, SpaceProps, TypographyProps, FontStyleProps {
   cursor?: string;
 }
@@ -19,6 +20,8 @@ export interface TextProps extends BoxProps, TextStyleProps {
 }
 
 export interface ButtonProps extends FlexProps {
+  variant?: buttonVariantType;
+  disabled?: boolean;
 }
 
 export interface ImageProps extends BackgroundImageProps, PositionProps, SpaceProps, BackgroundProps {}
@@ -36,4 +39,5 @@ export interface InputProps extends FlexProps {
   name?: string;
   disabled?: boolean;
   as?: string;
+  type?: string;
 }

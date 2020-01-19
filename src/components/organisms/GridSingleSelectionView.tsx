@@ -3,7 +3,7 @@ import { Flex, Text } from '../atoms';
 
 interface Props {
   options: Array<{name: string; id: number}>;
-  selectedOption: {
+  selected: {
     id?: number,
     name?: string;
   }
@@ -14,7 +14,7 @@ interface Props {
 
 const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   options,
-  selectedOption,
+  selected,
   onSelectOption,
   artifactType,
   onChangeOption
@@ -22,10 +22,10 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   return (
     <Flex backgroundColor='options' position='relative'>
       <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>
-        {selectedOption.id ? 
+        {selected.id ? 
           <Fragment>
             <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3}>
-              <Text fontSize='xl' alignItems='center'>{selectedOption.name}</Text>
+              <Text fontSize='xl' alignItems='center'>{selected.name}</Text>
             </Flex>
             <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' height='250px' m={3}>
               <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption} data-testid='grid-single-selection-view-change-name'>Change game</Text>

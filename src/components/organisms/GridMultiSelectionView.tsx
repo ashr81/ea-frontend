@@ -3,7 +3,7 @@ import { Flex, Text } from '../atoms';
 
 interface Props {
   options: Array<{name: string; id: number}>;
-  selectedOption: {
+  selected: {
     id?: number,
     name?: string;
   }
@@ -13,7 +13,7 @@ interface Props {
 
 const GridMultiSelectionView: React.FunctionComponent<Props> = ({
   options,
-  selectedOption,
+  selected,
   artifactType,
   onSelectOption
 }) => {
@@ -28,8 +28,8 @@ const GridMultiSelectionView: React.FunctionComponent<Props> = ({
           onClick={onSelectOption}
           alignItems='center'
           justifyContent='center'
-          color={option.id === selectedOption.id ? 'white' : 'black'}
-          backgroundColor={option.id === selectedOption.id ? 'black' : 'white'}
+          color={option.id === selected.id ? 'white' : 'black'}
+          backgroundColor={option.id === selected.id ? 'black' : 'white'}
           border='3px solid black'
           borderRadius={3}
           p={3}

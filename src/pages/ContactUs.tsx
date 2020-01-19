@@ -79,15 +79,18 @@ const ContactUsPage = () => {
    * Fetch issue details on selection of topics.
    */
   useEffect(() => {
-    if(state.selectedTopic.id) {
+    if(state.topics.selected.id) {
       (async function() {
         try{
-          const response = await IssueAPI.fetch({params: { topic_id: state.selectedTopic.id }})
+          const response = await IssueAPI.fetch({params: { topic_id: state.topics.selected.id }})
           if(response.data.error) {
             dispatch({type: SET_NO_ISSUES})
           } else {
             dispatch({ data: {
-              issues: response.data,
+              issues: {
+                options: response.data,
+                selected: {}
+              },
               noIssues: false
             }})
           }
@@ -96,43 +99,49 @@ const ContactUsPage = () => {
         }
       })()
     }
-  }, [state.selectedTopic.id])
+  }, [state.topics.selected.id])
 
   /**
    * Fetch topic details on selection of a platform.
    */
   useEffect(() => {
-    if(state.selectedPlatform.id) {
+    if(state.platforms.selected.id) {
       (async function() {
         try{
-          const response = await TopicAPI.fetch({params: { platform_id: state.selectedPlatform.id }})
+          const response = await TopicAPI.fetch({params: { platform_id: state.platforms.selected.id }})
           dispatch({ data: {
-            topics: response.data
+            topics: {
+              selected: {},
+              options: response.data
+            }
           }})
         } catch(err) {
           console.error(`error in platforms.api.`)
         }
       })()
     }
-  }, [state.selectedPlatform.id])
+  }, [state.platforms.selected.id])
 
   /**
    * Gets all the platforms on selection of product.
    */
   useEffect(() => {
-    if(state.selectedProduct.id) {
+    if(state.products.selected.id) {
       (async function() {
         try{
-          const response = await PlatformAPI.fetch({params: { product_id: state.selectedProduct.id }})
+          const response = await PlatformAPI.fetch({params: { product_id: state.products.selected.id }})
           dispatch({ data: {
-            platforms: response.data
+            platforms: {
+              options: response.data,
+              selected: {}
+            }
           }})
         } catch(err) {
           console.error(`error in platforms.api.`)
         }
       })()
     }
-  }, [state.selectedProduct.id])
+  }, [state.products.selected.id])
 
   /**
    * Fetch products on page render and search query text change;
@@ -142,10 +151,12 @@ const ContactUsPage = () => {
       try {
         const response = await ProductAPI.fetch({params: { query: state.searchQuery }})
         dispatch({ data: {
-          products: response.data
+          products: {
+            options: response.data,
+            selected: {}
+          }
         }})
       } catch(err) {
-        console.log(`error is: ${JSON.stringify(err)}`)
         console.error(`error in products.api.`)
       }
     })()

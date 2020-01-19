@@ -6,22 +6,20 @@ import GridMultiSelectionView from '../organisms/GridMultiSelectionView';
 import MailForm from '../organisms/MailForm';
 import { PRODUCTS, PLATFORMS, TOPICS, ISSUES } from '../../reducers/contact-form.reducer';
 
-type ListProps = Array<{name: string; id: number}>
-type selectedProps = {id?: number; name?: string}
+type EntityProps = {
+  options: Array<{name: string; id: number}>,
+  selected: {id?: number; name?: string}
+}
 interface Props {
   onTextChange: (event: React.SyntheticEvent) => void;
-  products: ListProps;
-  selectedProduct: selectedProps;
+  products: EntityProps;
   searchQuery: string;
   onSelectOption: (event: React.SyntheticEvent) => void;
   onChangeOption: (event: React.SyntheticEvent) => void;
   onFormSubmit: () => void;
-  platforms: ListProps;
-  selectedPlatform: selectedProps;
-  topics: ListProps;
-  selectedTopic: selectedProps;
-  issues: ListProps;
-  selectedIssue: selectedProps;
+  platforms: EntityProps;
+  topics: EntityProps;
+  issues: EntityProps;
   /**
    * true when no issues are present for a selected topic.
    */
@@ -38,26 +36,22 @@ const ContactUs = ({
   searchQuery,
   products,
   platforms,
-  selectedProduct,
-  selectedPlatform,
   onSelectOption,
   onChangeOption,
   topics,
-  selectedTopic,
   issues,
-  selectedIssue,
   noIssues, onClickResetState,
   email, subject, description, onFormSubmit, isSubmittedSuccessfully
 }: Props) => {
-  const showSearchInput = !selectedProduct.id
-  const showPlatforms = !!selectedProduct.id;
-  const showTopics = !!selectedPlatform.id;
-  const showIssues = !!selectedTopic.id && !noIssues;
-  const showMailForm = !!selectedIssue.id || !!selectedTopic.id && noIssues;
+  const showSearchInput = !products.selected.id
+  const showPlatforms = !!products.selected.id;
+  const showTopics = !!platforms.selected.id;
+  const showIssues = !!topics.selected.id && !noIssues;
+  const showMailForm = !!issues.selected.id || !!topics.selected.id && noIssues;
   if(isSubmittedSuccessfully) {
     return(
       <Flex mx={6} height='100vh' alignItems='center' justifyContent='center'>
-        <Text>Successfully submitted your form. Thank you.</Text><Text color='blue' cursor='pointer' onClick={onClickResetState}> Click here </Text><Text> to submit another request</Text>
+        <Text>Successfully submitted your form. Thank you.</Text>&nbsp;<Text color='blue' cursor='pointer' onClick={onClickResetState}> Click here </Text>&nbsp;<Text> to submit another request</Text>
       </Flex>
     )
   }
@@ -72,16 +66,14 @@ const ContactUs = ({
         <Text fontSize='xl' mx={6} mb={3}>Select the game or service.*</Text>
         {showSearchInput ? <Input my={4} fontSize='xl' name='searchQuery' placeholder='Search any EA product' mx={6} onChange={onTextChange} value={searchQuery}/> : null}
           <GridSingleSelectionView
-            options={products}
-            selectedOption={selectedProduct}
+            {...products}
             onSelectOption={onSelectOption}
             onChangeOption={onChangeOption}
             artifactType={PRODUCTS}
           />
         {showPlatforms ? <Fragment><Text fontSize='xl' mx={6} my={2}>What platform are you playing on?*</Text>
           <GridSingleSelectionView
-            options={platforms}
-            selectedOption={selectedPlatform}
+            {...platforms}
             onSelectOption={onSelectOption}
             onChangeOption={onChangeOption}
             artifactType={PLATFORMS}
@@ -89,15 +81,13 @@ const ContactUs = ({
           </Fragment> : null}
         {showTopics ? <Fragment><Text fontSize='xl' mx={6} my={2}>Select topic*</Text>
           <GridMultiSelectionView
-            options={topics}
-            selectedOption={selectedTopic}
+            {...topics}
             onSelectOption={onSelectOption}
             artifactType={TOPICS}
           /></Fragment> : null}
         {showIssues ? <Fragment><Text fontSize='xl' mx={6} my={2}>Select issue*</Text>
           <GridMultiSelectionView
-            options={issues}
-            selectedOption={selectedIssue}
+            {...issues}
             onSelectOption={onSelectOption}
             artifactType={ISSUES}
           /></Fragment> : null}
