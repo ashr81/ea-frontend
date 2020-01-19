@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForElement, fireEvent } from '../../utils/test-utils';
+import { render, cleanup, waitForElement, fireEvent, wait } from '../../utils/test-utils';
 import ContactUsPage from '../ContactUs';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
@@ -118,4 +118,80 @@ test('tests submission disabled until valid entries are entered into inputs.', a
   const formSubmitButton = getByTestId('mail-form-button-submit')
   expect(formSubmitButton).toBeInTheDocument()
   expect(formSubmitButton).toBeDisabled()
+})
+
+test('clicking change name on products removes platforms from view.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
+  axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  // getBy raises error when record not found. Doesn't work on cases to check for not presence.
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />)
+
+  const productFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PRODUCTS}-2`))
+  fireEvent.click(productFromMockedData)
+  const platformFromMockedData = await waitForElement(() => getByTestId(`platforms-title`))
+  expect(platformFromMockedData).toBeInTheDocument()
+  const changeProductNameText = getByTestId(`grid-single-selection-view-change-name-${PRODUCTS}`)
+  expect(changeProductNameText).toBeInTheDocument()
+
+  fireEvent.click(changeProductNameText)
+  const platformsDataWhileChangingProduct = await wait(() => queryByTestId('platforms-title'))
+  expect(platformsDataWhileChangingProduct).toBeUndefined()
+})
+
+test('clicking change name for platforms show all platforms as list view.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
+  axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  // getBy raises error when record not found. Doesn't work on cases to check for not presence.
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />)
+
+  const productFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PRODUCTS}-2`))
+  fireEvent.click(productFromMockedData)
+  const platformFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  fireEvent.click(platformFromMockedData)
+  const platformFromMockedDataAfterRemoval = await wait(() => queryByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  expect(platformFromMockedDataAfterRemoval).toBeUndefined()
+  const changePlatformNameText = getByTestId(`grid-single-selection-view-change-name-${PLATFORMS}`)
+  expect(changePlatformNameText).toBeInTheDocument()
+
+  fireEvent.click(changePlatformNameText)
+  const platformFromMockedDataAfterReselection = await waitForElement(() => getByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  expect(platformFromMockedDataAfterReselection).toBeInTheDocument()
+}, 10000)
+
+
+test('tests feedback submission after all inputs are entered.', async () => {
+  axiosAdapter.onGet(API_PRODUCTS).reply(200, productsJson)
+  axiosAdapter.onGet(API_PLATFORMS).reply(200, platformsJson)
+  axiosAdapter.onGet(API_TOPICS).reply(200, topicsJson)
+  axiosAdapter.onGet(API_ISSUES).reply(200, issuesJson)
+  // getBy raises error when record not found. Doesn't work on cases to check for not presence.
+  const { getByTestId, queryByTestId } = render(<ContactUsPage />)
+
+  const emailInputBeforeSelection = queryByTestId(`mail-form-input-email`)
+  expect(emailInputBeforeSelection).not.toBeInTheDocument()
+
+  const productFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PRODUCTS}-2`))
+  fireEvent.click(productFromMockedData)
+  const platformFromMockedData = await waitForElement(() => getByTestId(`grid-single-selection-view-${PLATFORMS}-2`))
+  fireEvent.click(platformFromMockedData)
+  const topicFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${TOPICS}-5`))
+  fireEvent.click(topicFromMockedData)
+  const issueFromMockedData = await waitForElement(() => getByTestId(`grid-multi-selection-view-${ISSUES}-14`))
+  fireEvent.click(issueFromMockedData)
+  
+  const emailInput = queryByTestId('mail-form-input-email')
+  expect(emailInput).toBeInTheDocument()
+  fireEvent.change(emailInput, {target: {name: 'email', value: 'ashrith.com'}})
+  const subjectInput = queryByTestId('mail-form-input-subject')
+  expect(subjectInput).toBeInTheDocument()
+  expect(subjectInput).toHaveValue('need-for-speed-heat - ps4 - report a bug - features')
+  const descriptionInput = queryByTestId('mail-form-input-description')
+  fireEvent.change(descriptionInput, {target: {name: 'description', value: 'Some Description'}})
+  expect(descriptionInput).toBeInTheDocument()
+  const formSubmitButton = getByTestId('mail-form-button-submit')
+  expect(formSubmitButton).toBeInTheDocument()
+  expect(formSubmitButton).toBeDisabled()
+  fireEvent.change(emailInput, {target: {name: 'email', value: 'ashrith@ashrith.com'}})
+  expect(formSubmitButton).toBeInTheDocument()
+  expect(formSubmitButton).not.toBeDisabled()
 })

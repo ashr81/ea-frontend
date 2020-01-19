@@ -124,13 +124,19 @@ export const contactFormReducer = (
     } case RESET_SELECTED_PRODUCT: {
       return {
         ...state,
-        selectedPlatform: {},
-        platforms: [],
-        selectedProduct: {},
-        topics: [],
-        selectedTopic: {},
-        issues: [],
-        selectedIssue: {},
+        platforms: {
+          ...contactFormInitialState.platforms
+        },
+        products: {
+          ...state.products,
+          selected: {}
+        },
+        topics: {
+          ...contactFormInitialState.topics
+        },
+        issues: {
+          ...contactFormInitialState.issues
+        },
         noIssues: false
       }
     } case RESET_SELECTED_PLATFORM: {

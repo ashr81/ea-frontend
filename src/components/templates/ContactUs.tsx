@@ -59,7 +59,7 @@ const ContactUs = ({
       <Flex flexDirection='column' position='relative' my={4}>
         <Text color='label' fontSize='xs' my={2} mx={6}>*Indicates required field</Text>
         <Text fontSize='xl' mx={6}>What can we help you with?</Text>
-        <Text fontSize='xl' mx={6} mb={3}>Select the game or service.*</Text>
+        <Text fontSize='xl' mx={6} mb={3} data-testid='products-title'>Select the game or service.*</Text>
         {showSearchInput ? <Input my={4} fontSize='xl' name='searchQuery' placeholder='Search any EA product' mx={6} onChange={onTextChange} value={searchQuery}/> : null}
           <GridSingleSelectionView
             {...products}
@@ -67,21 +67,22 @@ const ContactUs = ({
             onChangeOption={onChangeOption}
             artifactType={PRODUCTS}
           />
-        {showPlatforms ? <Fragment><Text fontSize='xl' mx={6} my={2}>What platform are you playing on?*</Text>
-          <GridSingleSelectionView
-            {...platforms}
-            onSelectOption={onSelectOption}
-            onChangeOption={onChangeOption}
-            artifactType={PLATFORMS}
-          />
+        {showPlatforms ? <Fragment>
+          <Text fontSize='xl' mx={6} my={2} data-testid='platforms-title'>What platform are you playing on?*</Text>
+            <GridSingleSelectionView
+              {...platforms}
+              onSelectOption={onSelectOption}
+              onChangeOption={onChangeOption}
+              artifactType={PLATFORMS}
+            />
           </Fragment> : null}
-        {showTopics ? <Fragment><Text fontSize='xl' mx={6} my={2}>Select topic*</Text>
+        {showTopics ? <Fragment><Text fontSize='xl' mx={6} my={2} data-testid='topics-title'>Select topic*</Text>
           <GridMultiSelectionView
             {...topics}
             onSelectOption={onSelectOption}
             artifactType={TOPICS}
           /></Fragment> : null}
-        {showIssues ? <Fragment><Text fontSize='xl' mx={6} my={2}>Select issue*</Text>
+        {showIssues ? <Fragment><Text fontSize='xl' mx={6} my={2} data-testid='issues-title'>Select issue*</Text>
           <GridMultiSelectionView
             {...issues}
             onSelectOption={onSelectOption}
