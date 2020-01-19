@@ -7,8 +7,9 @@ import MailForm from '../organisms/MailForm';
 import { PRODUCTS, PLATFORMS, TOPICS, ISSUES } from '../../reducers/contact-form.reducer';
 
 type EntityProps = {
-  options: Array<{name: string; id: number}>,
-  selected: {id?: number; name?: string}
+  options: Array<{name: string; id: number}>;
+  selected: {id?: number; name?: string};
+  isLoading: boolean;
 }
 interface Props {
   onTextChange: (event: React.SyntheticEvent) => void;

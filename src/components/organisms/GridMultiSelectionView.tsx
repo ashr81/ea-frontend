@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Flex, Text } from '../atoms';
+import { GridMultiSelectionViewLoader } from '../../content-loaders'
 
 interface Props {
   options: Array<{name: string; id: number}>;
@@ -7,6 +8,7 @@ interface Props {
     id?: number,
     name?: string;
   }
+  isLoading: boolean;
   artifactType: 'topics' | 'issues';
   onSelectOption: (event: React.SyntheticEvent) => void;
 }
@@ -14,12 +16,13 @@ interface Props {
 const GridMultiSelectionView: React.FunctionComponent<Props> = ({
   options,
   selected,
+  isLoading,
   artifactType,
   onSelectOption
 }) => {
   return (
     <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>
-      {options.map(option => (
+      {isLoading ? <GridMultiSelectionViewLoader /> : options.map(option => (
         <Flex width='240px'
           cursor='pointer'
           data-testid={`grid-multi-selection-view-${artifactType}-${option.id}`}

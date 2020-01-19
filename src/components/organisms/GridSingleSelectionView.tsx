@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Flex, Text } from '../atoms';
+import { GridSingleSelectionViewLoader } from '../../content-loaders';
 
 interface Props {
   options: Array<{name: string; id: number}>;
@@ -10,11 +11,13 @@ interface Props {
   onSelectOption: (event: React.SyntheticEvent) => void;
   artifactType: 'products' | 'platforms';
   onChangeOption: (event: React.SyntheticEvent) => void;
+  isLoading: boolean;
 }
 
 const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   options,
   selected,
+  isLoading,
   onSelectOption,
   artifactType,
   onChangeOption
@@ -31,11 +34,11 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
               <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption} data-testid='grid-single-selection-view-change-name'>Change game</Text>
             </Flex>
           </Fragment>
-        : options.map(option => (
+        : (isLoading ? <GridSingleSelectionViewLoader /> : options.map(option => (
           <Flex width='180px' cursor='pointer' data-testid={`grid-single-selection-view-${artifactType}-${option.id}`} data-artifact-type={artifactType} data-option-id={option.id} onClick={onSelectOption} alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3} key={option.id}>
             <Text fontSize='xl' alignItems='center'>{option.name}</Text>
           </Flex>
-        ))}
+        )))}
       </Flex>
     </Flex>
   )

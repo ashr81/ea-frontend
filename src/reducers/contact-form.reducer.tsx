@@ -153,6 +153,10 @@ export const contactFormReducer = (
     } case SET_NO_ISSUES: {
       return {
         ...state,
+        issues: {
+          ...state.issues,
+          isLoading: false
+        },
         noIssues: true,
         subject: `${state.products.selected.name} - ${state.platforms.selected.name} - ${state.topics.selected.name}`
       }
