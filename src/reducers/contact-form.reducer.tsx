@@ -1,5 +1,3 @@
-import { stat } from "fs";
-
 // These are constant names used across the application.
 export const PRODUCTS = 'products';
 export const PLATFORMS = 'platforms';
@@ -14,7 +12,7 @@ export const INPUT_CHANGE = 'INPUT_CHANGE';
 export const PLATFORM_SELECTION = 'PLATFORM_SELECTION';
 export const TOPIC_SELECTION = 'TOPIC_SELECTION';
 export const ISSUE_SELECTION = 'ISSUE_SELECTION';
-export const EMAIL_INPUT_CHANGE = 'EMAIL_INPUT_CHANGE';
+export const SEARCH_INPUT_CHANGE = 'SEARCH_INPUT_CHANGE';
 export const ADD_SUBJECT_INPUT = 'ADD_SUBJECT_INPUT';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RESET_SELECTED_PRODUCT = 'RESET_SELECTED_PRODUCT';
@@ -25,19 +23,23 @@ export const contactFormInitialState = {
   searchQuery: '',
   products: {
     options: [],
-    selected: {}
+    selected: {},
+    isLoading: true
   },
   platforms: {
     options: [],
-    selected: {}
+    selected: {},
+    isLoading: false
   },
   topics: {
     options: [],
-    selected: {}
+    selected: {},
+    isLoading: false
   },
   issues: {
     options: [],
-    selected: {}
+    selected: {},
+    isLoading: false
   },
   noIssues: false, // true when selected topic doesn't have any issues linked to it.
   email: '',
@@ -61,6 +63,11 @@ export const contactFormReducer = (
         ...state,
         [rest.data.name]: rest.data.value
       }
+    } case SEARCH_INPUT_CHANGE: {
+      return {
+        ...state,
+        searchQuery: rest.data.value
+      }
     } case PRODUCT_SELECTION: {
       const productId = rest.data.id;
       return {
@@ -68,6 +75,10 @@ export const contactFormReducer = (
         products: {
           ...state.products,
           selected: state.products.options.filter((product: {id: number}) => product.id === productId)[0]
+        },
+        platforms: {
+          ...state.platforms,
+          isLoading: true
         }
       }
     } case PLATFORM_SELECTION: {
@@ -77,6 +88,10 @@ export const contactFormReducer = (
         platforms: {
           ...state.platforms,
           selected: state.platforms.options.filter((platform: {id: number}) => platform.id === platformId)[0]
+        },
+        topics: {
+          ...state.topics,
+          isLoading: true
         }
       }
     } case TOPIC_SELECTION: {
@@ -89,7 +104,8 @@ export const contactFormReducer = (
         },
         issues: {
           options: [],
-          selected: {}
+          selected: {},
+          isLoading: true
         },
         noIssues: false
       }

@@ -7,6 +7,8 @@ import {
 import { TextStyle } from 'react-native';
 import theme from './theme';
 
+declare module 'react-tiny-toast' {};
+
 type fontSizeType = keyof theme.fontSizes;
 type buttonVariantType = keyof typeof theme.buttons
 export interface BoxProps extends BackgroundProps, ColorProps, BorderProps, LayoutProps, PositionProps, SpaceProps, TypographyProps, FontStyleProps {

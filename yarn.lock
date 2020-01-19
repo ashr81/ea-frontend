@@ -8723,6 +8723,11 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-content-loader@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-4.3.4.tgz#5060df47c5ed0a16c31a35169c4e6f69e96b39a8"
+  integrity sha512-wwpF6dWaqeaiIwA/NofTuuO7PQaXRxGkukcdrNK/oIKEkfU3BPkNFrCb6sk9Q5l9n5uN80RF60ZO53wzxSy2HQ==
+
 react-dev-utils@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.0.0.tgz#bd2d16426c7e4cbfed1b46fb9e2ac98ec06fcdfa"
@@ -8882,6 +8887,14 @@ react-timer-mixin@^0.13.4:
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
+
+react-tiny-toast@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/react-tiny-toast/-/react-tiny-toast-0.1.13.tgz#bc263289f3c48d8f507b3b283b9a824d3bdc7d9d"
+  integrity sha512-iA4Bbd8QsY/38gpwCecTKryLh+5uKB5KQSkcUS8q5+f/sqPUAeYUohqv4AHdBkHCHz0C5cqQaW9o+l4ACEtgJw==
+  dependencies:
+    react "^16.12.0"
+    react-dom "^16.12.0"
 
 react@^16.12.0:
   version "16.12.0"

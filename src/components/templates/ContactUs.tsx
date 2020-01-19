@@ -32,15 +32,10 @@ interface Props {
 }
 
 const ContactUs = ({
-  onTextChange,
-  searchQuery,
-  products,
-  platforms,
-  onSelectOption,
-  onChangeOption,
-  topics,
-  issues,
-  noIssues, onClickResetState,
+  onTextChange, searchQuery,
+  products, platforms,
+  onSelectOption, onChangeOption,
+  topics, issues, noIssues, onClickResetState,
   email, subject, description, onFormSubmit, isSubmittedSuccessfully
 }: Props) => {
   const showSearchInput = !products.selected.id
