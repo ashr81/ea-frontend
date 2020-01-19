@@ -5,7 +5,7 @@ import PlatformAPI from '../services/platforms.api';
 import TopicAPI from '../services/topics.api';
 import IssueAPI from '../services/issues.api';
 import FeedbackAPI from '../services/feedback.api';
-import useFetchAPI from '../customHooks/useFetchAPI';
+import useFetchAPI from '../custom-hooks/useFetchAPI';
 import {
   contactFormReducer, contactFormInitialState,
   INPUT_CHANGE, SET_NO_ISSUES,
