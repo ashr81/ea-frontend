@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { Flex, Text, Input } from '../atoms';
 import { BackgroundWithHeader } from '../molecules';
 import GridAlbumSelectionView from '../organisms/GridSingleSelectionView';
@@ -29,6 +29,8 @@ interface Props {
   subject: string;
   email: string;
   description: string;
+  isSubmittedSuccessfully: boolean;
+  onClickResetState: () => void;
 }
 
 const ContactUs = ({
@@ -44,14 +46,21 @@ const ContactUs = ({
   selectedTopic,
   issues,
   selectedIssue,
-  noIssues,
-  email, subject, description, onFormSubmit
+  noIssues, onClickResetState,
+  email, subject, description, onFormSubmit, isSubmittedSuccessfully
 }: Props) => {
   const showSearchInput = !selectedProduct.id
   const showPlatforms = !!selectedProduct.id;
   const showTopics = !!selectedPlatform.id;
   const showIssues = !!selectedTopic.id && !noIssues;
   const showMailForm = !!selectedIssue.id || !!selectedTopic.id && noIssues;
+  if(isSubmittedSuccessfully) {
+    return(
+      <Flex mx={6} height='100vh' alignItems='center' justifyContent='center'>
+        <Text>Successfully submitted your form. Thank you.</Text><Text color='blue' cursor='pointer' onClick={onClickResetState}> Click here </Text><Text> to submit another request</Text>
+      </Flex>
+    )
+  }
   return (
     <Fragment>
       <BackgroundWithHeader>

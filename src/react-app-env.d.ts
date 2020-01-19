@@ -18,6 +18,9 @@ export interface TextProps extends BoxProps, TextStyleProps {
   fontSize?: fontSizeType | Array<fontSizeType>;
 }
 
+export interface ButtonProps extends FlexProps {
+}
+
 export interface ImageProps extends BackgroundImageProps, PositionProps, SpaceProps, BackgroundProps {}
 
 export interface RequestOptions {

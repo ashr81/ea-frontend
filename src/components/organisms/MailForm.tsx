@@ -31,7 +31,7 @@ const MailForm: React.FunctionComponent<Props> = ({
         placeholder='What is your query?'
         mx={6} name='description' onChange={onTextChange} value={description}
       />
-      <Button mx={6} borderRadius={3} borderStyle='none' width='200px' p={3} backgroundColor='blue' color='white' onClick={onFormSubmit}>Email Us</Button>
+      <Button cursor='pointer' mx={6} borderRadius={3} borderStyle='none' width='200px' p={3} backgroundColor='blue' color='white' onClick={onFormSubmit}>Email Us</Button>
     </Flex>
   )
 }

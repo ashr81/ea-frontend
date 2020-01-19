@@ -6,7 +6,7 @@ type Options = Omit<RequestOptions, 'url'>;
 
 class FeedbackAPI {
   static submitForm(options: Options) {
-    return request({url: API_FEEDBACK, ...options})
+    return request({url: API_FEEDBACK, ...options, method: 'post'})
   }
 }
 

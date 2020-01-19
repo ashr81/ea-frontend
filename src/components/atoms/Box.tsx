@@ -14,7 +14,7 @@ const Box = styled.div<BoxProps>`
   ${typography}
   ${fontStyle}
   ${({ cursor }) => cursor && css`
-    cursor: ${cursor}
+    cursor: ${cursor};
   `}
 `
 

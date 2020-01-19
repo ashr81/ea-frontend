@@ -13,7 +13,7 @@ import {
   PLATFORM_SELECTION, RESET_SELECTED_PRODUCT,
   RESET_SELECTED_PLATFORM,
   TOPICS, ISSUE_SELECTION,
-  TOPIC_SELECTION, ISSUES
+  TOPIC_SELECTION, ISSUES, RESET_STATE
 } from '../reducers/contact-form.reducer';
 
 const ContactUsPage = () => {
@@ -22,6 +22,8 @@ const ContactUsPage = () => {
   const onTextChange = useCallback((event) => dispatch({ type: INPUT_CHANGE, data: {
     name: event.currentTarget.name, value: event.currentTarget.value
   }}), [])
+
+  const onClickResetState = useCallback(() => dispatch({ type: RESET_STATE }), [])
 
   const onSelectOption = (event: React.SyntheticEvent<any>) => {
     const { optionId, artifactType } = event.currentTarget.dataset;
@@ -46,12 +48,19 @@ const ContactUsPage = () => {
 
   const onFormSubmit = async () => {
     try {
-      const { email, description, subject } = state;
-      const response = await FeedbackAPI.submitForm({
+      const {
+        email, description, subject, selectedProduct: { id: product_id },
+        selectedPlatform: { id: platform_id }, selectedTopic: {id: topic_id },
+        selectedIssue: { id: issue_id }
+      } = state;
+      await FeedbackAPI.submitForm({
         data: {
-          email, description, subject
+          email, description, subject,
+          product_id, platform_id, topic_id,
+          issue_id
         }
       })
+      dispatch({ data: { isSubmittedSuccessfully: true }})
     } catch(error) {
       console.error(`error sending email.`)
     }
@@ -147,6 +156,7 @@ const ContactUsPage = () => {
       onSelectOption={onSelectOption}
       onChangeOption={onChangeOption}
       onFormSubmit={onFormSubmit}
+      onClickResetState={onClickResetState}
       {...state}
     />
   )

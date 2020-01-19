@@ -8,6 +8,7 @@ export const ISSUES = 'issues';
 
 
 // Below are the action types used.
+export const RESET_STATE = 'RESET_STATE';
 export const PRODUCT_SELECTION = 'PRODUCT_SELECTION';
 export const INPUT_CHANGE = 'INPUT_CHANGE';
 export const PLATFORM_SELECTION = 'PLATFORM_SELECTION';
@@ -33,7 +34,8 @@ export const contactFormInitialState = {
   noIssues: false, // true when selected topic doesn't have any issues linked to it.
   email: '',
   subject: '',
-  description: ''
+  description: '',
+  isSubmittedSuccessfully: false
 }
 
 export const contactFormReducer = (
@@ -42,7 +44,11 @@ export const contactFormReducer = (
 ) => {
   const { type, ...rest } = action;
   switch(type) {
-    case INPUT_CHANGE: {
+    case RESET_STATE: {
+      return {
+        ...contactFormInitialState
+      }
+    } case INPUT_CHANGE: {
       return {
         ...state,
         [rest.data.name]: rest.data.value
