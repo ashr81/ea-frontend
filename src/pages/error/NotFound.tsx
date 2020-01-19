@@ -7,7 +7,7 @@ const NotFound = () => {
   const { push } = useHistory()
   const onClick = useCallback(() => push(CONTACT_US), [])
   return (
-    <Flex flexDirection='column'>
+    <Flex width='100vw' flexDirection='column' justifyContent='center' alignItems='center'>
       <Flex>Page Not Found</Flex>
       <Button onClick={onClick}>
         Contact Us
