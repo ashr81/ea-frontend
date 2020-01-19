@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, waitForElement, fireEvent, wait, queryAllByTestId } from '../../utils/test-utils';
+import { render, cleanup, waitForElement, fireEvent, wait } from '../../utils/test-utils';
 import ContactUsPage from '../ContactUs';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';

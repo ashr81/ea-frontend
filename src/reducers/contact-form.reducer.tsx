@@ -59,15 +59,6 @@ export const contactFormReducer = (
       return {
         ...contactFormInitialState
       }
-    } case SEARCH_QUERY_CHANGE: {
-      return {
-        ...state,
-        searchQuery: rest.data.value,
-        products: {
-          ...state.products,
-          isLoading: true
-        }
-      }
     } case INPUT_CHANGE: {
       return {
         ...state,

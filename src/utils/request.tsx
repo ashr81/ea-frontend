@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { RequestOptions } from '../react-app-env';
 
-
 const request = (options: RequestOptions) => {
   const { headers, ...restOptions } = options;
   const client = axios.create({

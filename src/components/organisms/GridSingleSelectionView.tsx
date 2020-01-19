@@ -20,7 +20,7 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   artifactType, onChangeOption
 }) => {
   if(!isLoading && options.length === 0 && !selected.id) {
-    return (<Flex>No {artifactType} available</Flex>)
+    return (<Flex width='100%' justifyContent='center'>No {artifactType} available</Flex>)
   }
   return (
     <Flex backgroundColor='options' position='relative'>

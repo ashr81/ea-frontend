@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, InputHTMLAttributes } from 'react';
+import React, { useReducer, useCallback, InputHTMLAttributes, useEffect } from 'react';
 import ContactUs from '../components/templates/ContactUs';
 import ProductAPI from '../services/products.api';
 import PlatformAPI from '../services/platforms.api';
@@ -9,13 +9,14 @@ import useFetchAPI from '../customHooks/useFetchAPI';
 import {
   contactFormReducer, contactFormInitialState,
   INPUT_CHANGE, SET_NO_ISSUES,
-  PRODUCT_SELECTION, SEARCH_QUERY_CHANGE,
+  PRODUCT_SELECTION,
   PLATFORMS, PRODUCTS,
   PLATFORM_SELECTION, RESET_SELECTED_PRODUCT,
   RESET_SELECTED_PLATFORM,
   TOPICS, ISSUE_SELECTION,
   TOPIC_SELECTION, ISSUES, RESET_STATE
 } from '../reducers/contact-form.reducer';
+import { debounce } from '../utils';
 
 const ContactUsPage = () => {
   const [state, dispatch] = useReducer(contactFormReducer, contactFormInitialState)
@@ -142,10 +143,22 @@ const ContactUsPage = () => {
     }, [])
   )
 
+  // altering api calling using debounce until user stops typing.
+  useEffect(
+    debounce(() => dispatch({
+      data: {
+        products: {
+          ...state.products,
+          isLoading: true
+        }
+      }
+    }), 500)
+  , [state.searchQuery])
+
   const onTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
     dispatch({ 
-      type: name === 'searchQuery' ? SEARCH_QUERY_CHANGE : INPUT_CHANGE, data: { name, value }
+      type: INPUT_CHANGE, data: { name, value }
     })
   }
 
