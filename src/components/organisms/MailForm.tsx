@@ -23,28 +23,28 @@ const MailForm: React.FunctionComponent<Props> = ({
       <Input my={4}
         type='email'
         data-testid='mail-form-input-email'
-        fontSize={5}
+        fontSize={[3, 5]}
         placeholder='Enter your email'
-        mx={6} name='email' onChange={onTextChange} value={email}
+        mx={[2, 6]} name='email' onChange={onTextChange} value={email}
       />
       <Input my={4}
         data-testid='mail-form-input-subject'
-        fontSize={5}
-        mx={6} value={subject}
+        fontSize={[3, 5]}
+        mx={[2, 6]} value={subject}
         disabled={true}
       />
       <Input my={4}
         as='textarea'
-        fontSize={4}
+        fontSize={[3, 4]}
         data-testid='mail-form-input-description'
         placeholder='What is your query?'
-        mx={6} name='description' onChange={onTextChange} value={description}
+        mx={[2, 6]} name='description' onChange={onTextChange} value={description}
       />
       <Button type='submit' cursor={buttonDisabled ? 'not-allowed' : 'pointer'}
         data-testid='mail-form-button-submit'
-        mx={6}
+        mx={[2, 6]}
         disabled={buttonDisabled}
-        borderStyle='none' width='200px'
+        borderStyle='none' width={['140px', '200px']}
         p={3}
       >Email Us</Button>
     </Flex>
