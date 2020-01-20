@@ -28,11 +28,11 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
   }
   return (
     <Flex backgroundColor='options' position='relative'>
-      <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>
+      <Flex mx={[2, 6]} flexWrap='wrap' py={2} alignItems='center'>
         {selected.id ? 
           <Fragment>
             <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3}>
-              <Text fontSize='xl' alignItems='center'>{selected.name}</Text>
+              <Text fontSize={5} alignItems='center'>{selected.name}</Text>
             </Flex>
             <Flex width='180px' cursor='pointer' alignItems='center' justifyContent='center' height='250px' m={3}>
               <Text alignItems='center' data-artifact-type={artifactType} onClick={onChangeOption} data-testid={`grid-single-selection-view-change-name-${artifactType}`}>Change game</Text>
@@ -40,7 +40,7 @@ const GridSingleSelectionView: React.FunctionComponent<Props> = ({
           </Fragment>
         : (isLoading ? <GridSingleSelectionViewLoader /> : options.map(option => (
           <Flex width='180px' cursor='pointer' data-testid={`grid-single-selection-view-${artifactType}-${option.id}`} data-artifact-type={artifactType} data-option-id={option.id} onClick={onSelectOption} alignItems='center' justifyContent='center' backgroundColor='white' height='250px' m={3} key={option.id}>
-            <Text fontSize='xl' alignItems='center'>{option.name}</Text>
+            <Text fontSize={5} alignItems='center'>{option.name}</Text>
           </Flex>
         )))}
       </Flex>

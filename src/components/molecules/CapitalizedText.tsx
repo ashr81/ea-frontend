@@ -9,7 +9,7 @@ const CapitalizedText = styled(Text)`
 `
 
 CapitalizedText.defaultProps = {
-  fontSize: 'md'
+  fontSize: 3
 }
 
 export default CapitalizedText;

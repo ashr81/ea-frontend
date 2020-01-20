@@ -11,18 +11,8 @@ const colors = {
 }
 
 export default {
-  breakpoints: [600, 900, 1200, 1800],
-  fontSizes: {
-    xxs: 10,
-    xs: 12,
-    sm: 14,
-    md: 16,
-    lg: 18,
-    xl: 24,
-    xxl: 30,
-    xxxl: 36,
-    xxxxl: 72
-  },
+  breakpoints: ['600px', '900px', '1200px', '1800px'],
+  fontSizes: [10, 12, 14, 16, 18, 24, 30, 36, 72],
   buttons: {
     primary: {
       backgroundColor: colors.blue,

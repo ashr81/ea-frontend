@@ -16,7 +16,7 @@ const Text = styled(Flex)<TextProps>`
 `
 
 Text.defaultProps = {
-  fontSize: 'md'
+  fontSize: 3
 }
 
 export default Text;

@@ -25,7 +25,7 @@ const GridMultiSelectionView: React.FunctionComponent<Props> = ({
   onSelectOption
 }) => {
   return (
-    <Flex mx={6} flexWrap='wrap' py={2} alignItems='center'>
+    <Flex mx={[2, 6]} flexWrap='wrap' py={2} alignItems='center'>
       {isLoading ? <GridMultiSelectionViewLoader /> : options.map(option => (
         <Flex width='240px'
           cursor='pointer'
@@ -42,7 +42,7 @@ const GridMultiSelectionView: React.FunctionComponent<Props> = ({
           p={3}
           height='50px' m={3} key={option.id}
         >
-          <Text fontSize='md' alignItems='center'>{option.name}</Text>
+          <Text fontSize={3} alignItems='center'>{option.name}</Text>
         </Flex>
       ))}
     </Flex>
